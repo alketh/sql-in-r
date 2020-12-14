@@ -27,4 +27,16 @@ chk <- left_join(con1, con2, by = "tailnum") %>%
 
 collect(chk)
 
+show_query(chk)
 
+# SELECT `origin`, COUNT(*) AS `count`
+# FROM (SELECT `year.x`, `month`, `day`, `dep_time`, `sched_dep_time`, `dep_delay`, `arr_time`, `sched_arr_time`, `arr_delay`, `carrier`, `flight`, `tailnum`, `origin`, `dest`, `air_time`, `distance`, `hour`, `minute`, `time_hour`, `year.y`, `type`, `manufacturer`, `model`, `engines`, `seats`, `speed`, `engine`, `name`, `lat`, `lon`, `alt`, `tz`, `dst`, `tzone`
+#       FROM (SELECT `LHS`.`year` AS `year.x`, `month`, `day`, `dep_time`, `sched_dep_time`, `dep_delay`, `arr_time`, `sched_arr_time`, `arr_delay`, `carrier`, `flight`, `LHS`.`tailnum` AS `tailnum`, `origin`, `dest`, `air_time`, `distance`, `hour`, `minute`, `time_hour`, `RHS`.`year` AS `year.y`, `type`, `manufacturer`, `model`, `engines`, `seats`, `speed`, `engine`
+#            FROM `flights` AS `LHS`
+#            LEFT JOIN `planes` AS `RHS`
+#            ON (`LHS`.`tailnum` = `RHS`.`tailnum`)
+#      ) AS `LHS`
+#      LEFT JOIN `airports` AS `RHS`
+#      ON (`LHS`.`origin` = `RHS`.`faa`)
+# )
+# GROUP BY `origin`
