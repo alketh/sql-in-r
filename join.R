@@ -40,3 +40,11 @@ show_query(chk)
 #      ON (`LHS`.`origin` = `RHS`.`faa`)
 # )
 # GROUP BY `origin`
+
+system.time(collect(chk))
+
+system.time(left_join(nycflights13::flights, nycflights13::planes, by = "tailnum") %>%
+              left_join(nycflights13::airports, by = c("origin" = "faa")) %>%
+              group_by(origin) %>%
+              summarise(count = n()))
+
